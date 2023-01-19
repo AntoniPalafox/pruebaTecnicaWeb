@@ -1,0 +1,42 @@
+﻿@model ControlInventario.ViewModels.ProductoMovimientosViewModel;
+
+<div>
+    <h3>Datos de @Model.Producto.Producto</h3>
+</div>
+
+<div class="table-responsive col-12">
+
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th class="text-center" scope="col">ID</th>
+                <th class="text-center" scope="col">Tipo de movimiento</th>
+                <th class="text-center" scope="col">Cantidad Inicial</th>
+                <th class="text-center" scope="col">Cantidad Final</th>
+                <th class="text-center" scope="col">Fecha de movimiento</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            @if (Model.MovimientoModels.Count == 0)
+            {
+                <tr>
+                    <td colspan="4" class="text-center">NO HAY INFORMACIÓN DISPONIBLE</td>
+                </tr>
+            }
+
+            @foreach (var data in Model.MovimientoModels)
+            {
+                <tr id="tabla-productos">
+                    <th class="text-center" scope="row"> @data.Id_Movimiento</th>
+                    <td class="text-center">@data.Tipo_Movimiento</td>
+                    <td class="text-center">@data.Cantidad_Inicial</td>
+                    <td class="text-center">@data.Cantidad_Final</td>
+                    <td class="text-center">@data.Fecha_Movimiento.ToString("dd/MM/yyyy HH:mm:ss")</td>
+                </tr>
+            }
+
+
+        </tbody>
+    </table>
+</div>

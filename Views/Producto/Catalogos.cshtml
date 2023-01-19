@@ -1,0 +1,86 @@
+﻿@model ControlInventario.ViewModels.ProductoViewModel
+
+
+@if (Model.ErrorViewModel.Error != "")
+{
+    <h1>Este es el error: @Model.ErrorViewModel.Error</h1>
+}
+
+<div class="text-end">
+    <input type="button" class="btn btn-primary" value="Crear Tipo" onclick="location.href='@Url.Action("FormTipo", "Producto")'" />
+    <input type="button" class="btn btn-primary" value="Crear Presentación" onclick="location.href='@Url.Action("FormPresentacion", "Producto")'" />
+</div>
+
+<div class=" row">
+
+    <div class="table-responsive col-12 col-lg-5 mx-3">
+
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th class="text-center" scope="col">Id</th>
+                    <th class="text-center" scope="col">Tipo de producto</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                @if (Model.TipoModels.Count == 0)
+                {
+                    <tr>
+                        <td colspan="2" class="text-center">NO HAY INFORMACIÓN DISPONIBLE</td>
+                    </tr>
+                }
+
+                @foreach (var data in Model.TipoModels)
+                {
+                    <tr id="tabla-productos">
+                        <th class="text-center" scope="row"> @data.Id_Producto_Tipo</th>
+                        <td class="text-center">@data.Producto_Tipo</td>
+                    </tr>
+                }
+
+
+            </tbody>
+        </table>
+    </div>
+
+    <div class="table-responsive col-12 col-lg-6 mx-3">
+
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th class="text-center" scope="col">Id</th>
+                    <th class="text-center" scope="col">Tipo de presentacion</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                @if (Model.PresentacionModels.Count == 0)
+                {
+                    <tr>
+                        <td colspan="2" class="text-center">NO HAY INFORMACIÓN DISPONIBLE</td>
+                    </tr>
+                }
+
+                @foreach (var data in Model.PresentacionModels)
+                {
+                    <tr id="tabla-productos">
+                        <th class="text-center" scope="row"> @data.Id_Producto_Presentacion</th>
+                        <td class="text-center">@data.Producto_Presentacion</td>
+                    </tr>
+                }
+
+
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+
+
+
+
+@section Scripts {
+    <script src="/js/index.js" type="module"></script>
+}

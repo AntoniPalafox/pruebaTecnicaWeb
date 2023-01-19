@@ -1,0 +1,56 @@
+﻿@model ControlInventario.Models.ProductoModel;
+
+@{
+    string mensajeAlerta = "";
+    string boton = string.Empty;
+
+    if(Model.Opcion == "eliminar")
+    {
+        mensajeAlerta = "¿Seguro que deseas eliminar el producto?";
+        boton = "Si, eliminar";
+    }
+    else if (Model.Opcion == "switch")
+    {
+        mensajeAlerta = "¿Seguro que deseas activar/desactivar el producto?";
+        boton = "Si, cambiar estatus";
+    }
+    else if (Model.Opcion == "cantidad")
+    {
+        mensajeAlerta = "Indica si vas a agregar o restar productos del inventario";
+        boton = "Si, cambiar cantidad";
+    }
+}
+
+<h3 class="text-center">@mensajeAlerta</h3>
+
+
+<div class="d-flex justify-content-evenly">
+    <form asp-controller="Producto" asp-action="AlterarProducto">
+        <input type="hidden" asp-for="@Model.Id_Producto" value="@Model.Id_Producto">
+        
+        @if(Model.Opcion == "cantidad")
+        {
+            <div class="form-group">
+                <label asp-for="@Model.Opcion" class="form-label"></label>
+                <select asp-for="@Model.Opcion" class="form-select">
+                    <option selected disabled> SELLECIONE UNA OPCION</option>
+                    <option value="incrementar"> Alta de productos</option>
+                    <option value="decrementar"> Baja de productos</option>
+
+                </select>
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.Cantidad" class="form-label"></label>
+                <input type="number" asp-for="@Model.Cantidad" class="form-control" />
+            </div>
+        }
+        else
+        {
+            <input type="hidden" asp-for="@Model.Opcion" value="@Model.Opcion">
+        }
+
+        <br />
+        <button type="submit" class="btn btn-secondary" id="eliminar">@boton</button>
+        <button type="button" class="btn btn-danger btn-cerrar-modal" data-bs-dismiss="modal">Cerrar</button>
+    </form>
+</div>

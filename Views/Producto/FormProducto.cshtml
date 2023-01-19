@@ -1,0 +1,88 @@
+﻿@model ControlInventario.Models.ProductoModel
+
+@{
+    SelectList listTipos = (SelectList)ViewData["listTipos"];
+    SelectList listPresentaciones = (SelectList)ViewData["listPresentaciones"];
+
+    string accion = "AltaProducto";
+    string boton = "Crear";
+
+    if (Model.Id_Producto != 0)
+    {
+        accion = "EditarProducto";
+        boton = "Editar";
+    }
+}
+
+
+<h4>Alta de Productos</h4>
+<hr />
+<div class="row d-flex justify-content-center">
+    <div class="col-12 col-md-8 col-xl-6">
+        <form asp-action="@accion">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            @if(Model.Id_Producto != 0)
+            {
+                <input type="hidden" asp-for="Id_Producto" class="form-control" />
+            }
+            
+            <div class="form-group">
+                <label asp-for="Producto" class="control-label"></label>
+                <input asp-for="Producto" class="form-control" required/>
+                <span asp-validation-for="Producto" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Descripcion" class="control-label"></label>
+                <input asp-for="Descripcion" class="form-control" required />
+                <span asp-validation-for="Descripcion" class="text-danger"></span>
+            </div>
+            @if(Model.Id_Producto == 0)
+            {
+                <div class="form-group">
+                    <label asp-for="Cantidad" class="control-label"></label>
+                    <input asp-for="Cantidad" class="form-control" min="1" required />
+                    <span asp-validation-for="Cantidad" class="text-danger"></span>
+                </div>
+            }
+            
+            <div class="form-group">
+                <label asp-for="Id_Producto_Tipo" class="control-label">Tipo</label>
+                <select asp-for="Id_Producto_Tipo" asp-items="listTipos" class="form-select" required>
+                    @if(Model.Id_Producto_Tipo == 0)
+                    {
+                        <option selected disabled>Seleccione una opción</option>
+                        
+                    }
+                </select>
+                <span asp-validation-for="Id_Producto_Tipo" class="text-danger"></span>
+
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Id_Producto_Presentacion" class="control-label">Presentación</label>
+                <select asp-for="Id_Producto_Presentacion" asp-items="listPresentaciones" class="form-select" required>
+                    @if (Model.Id_Producto_Presentacion == 0)
+                    {
+                            <option selected disabled>Seleccione una opción</option>
+
+                    }
+                </select>
+                <span asp-validation-for="Id_Producto_Presentacion" class="text-danger"></span>
+
+            </div>
+
+            <div class="d-flex justify-content-end mt-3">
+
+                <div class="form-group">
+                    <input type="submit" value="@boton" class="btn btn-primary" />
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a class="btn btn-danger" asp-action="Index">Volver</a>
+
+</div>
+
